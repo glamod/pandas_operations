@@ -16,7 +16,7 @@ from . import logging_hdlr
 logger = logging_hdlr.init_logger(__name__,level = 'DEBUG')
 
 read_params = ['chunksize','names','dtype','parse_dates','date_parser',
-                       'infer_datetime_format','delimiter']
+                       'infer_datetime_format','delimiter','quotechar','escapechar']
 
 def make_copy(OParser):
     try:
