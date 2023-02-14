@@ -16,24 +16,24 @@ from . import logging_hdlr
 logger = logging_hdlr.init_logger(__name__,level = 'DEBUG')
 
 read_params = ['chunksize','names','dtype','parse_dates','date_parser',
-                       'infer_datetime_format','delimiter','quotechar','escapechar']
+               'infer_datetime_format','delimiter','quotechar','escapechar']
 
 def make_copy(OParser):
     try:
         #OParser.f.seek(0) # make sure origin is complete
         NewRef = StringIO(OParser.f.getvalue())
         read_dict = {x:OParser.orig_options.get(x) for x in read_params}
-        NParser = pd.read_csv( NewRef,**read_dict) 
+        NParser = pd.read_csv( NewRef,**read_dict)
         return NParser
     except Exception:
         logger.error('Failed to copy TextParser', exc_info=True)
-        return 
+        return
 
 def restore(Parser):
     try:
         Parser.f.seek(0)
         read_dict = {x:Parser.orig_options.get(x) for x in read_params}
-        Parser = pd.read_csv( Parser.f, **read_dict) 
+        Parser = pd.read_csv( Parser.f, **read_dict)
         return Parser
     except Exception:
         logger.error('Failed to restore TextParser', exc_info=True)
@@ -68,5 +68,5 @@ def get_length(Parser):
     for df in Parser_copy:
         no_records += len(df)
 
-    Parser_copy.close()      
+    Parser_copy.close()
     return no_records
